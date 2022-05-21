@@ -129,6 +129,9 @@ local function on_term_open()
       })
       :__resurrect()
   end
+  if fn.exists("+winbar") == 1 then
+    require("toggleterm.ui").set_winbar(term)
+  end
 end
 
 function M.exec_command(args, count)
@@ -260,7 +263,7 @@ function M.send_lines_to_terminal(selection_type, trim_spaces, terminal_id)
 
   -- Send each line to the terminal after some preprocessing if required
   for _, v in ipairs(lines) do
-    -- Trim whitespaces from the strings
+    -- Trim whitespace from the strings
     v = trim_spaces and v:gsub("^%s+", ""):gsub("%s+$", "") or v
     M.exec(v, terminal_id)
   end
